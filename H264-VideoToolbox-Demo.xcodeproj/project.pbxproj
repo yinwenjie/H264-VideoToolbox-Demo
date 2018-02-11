@@ -23,6 +23,7 @@
 		7A5BF7CD20308413005EAC8B /* libiconv.2.4.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A5BF7CC20308413005EAC8B /* libiconv.2.4.0.tbd */; };
 		7A5BF7CF20308438005EAC8B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A5BF7CE20308438005EAC8B /* AudioToolbox.framework */; };
 		7A5BF7D120308466005EAC8B /* libz.1.1.3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A5BF7D020308466005EAC8B /* libz.1.1.3.tbd */; };
+		7A5BF7EA20308968005EAC8B /* Video.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7A5BF7E920308968005EAC8B /* Video.bundle */; };
 		7AD1E5FB20261A8200AA6B44 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD1E5FA20261A8200AA6B44 /* AppDelegate.m */; };
 		7AD1E5FE20261A8200AA6B44 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD1E5FD20261A8200AA6B44 /* ViewController.m */; };
 		7AD1E60120261A8200AA6B44 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AD1E5FF20261A8200AA6B44 /* Main.storyboard */; };
@@ -48,6 +49,7 @@
 		7A5BF7CC20308413005EAC8B /* libiconv.2.4.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.2.4.0.tbd; path = usr/lib/libiconv.2.4.0.tbd; sourceTree = SDKROOT; };
 		7A5BF7CE20308438005EAC8B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		7A5BF7D020308466005EAC8B /* libz.1.1.3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.1.3.tbd; path = usr/lib/libz.1.1.3.tbd; sourceTree = SDKROOT; };
+		7A5BF7E920308968005EAC8B /* Video.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Video.bundle; sourceTree = "<group>"; };
 		7AD1E5F620261A8100AA6B44 /* H264-VideoToolbox-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "H264-VideoToolbox-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AD1E5F920261A8200AA6B44 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7AD1E5FA20261A8200AA6B44 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 		7AD1E5F820261A8100AA6B44 /* H264-VideoToolbox-Demo */ = {
 			isa = PBXGroup;
 			children = (
+				7A5BF7E920308968005EAC8B /* Video.bundle */,
 				7AD1E5F920261A8200AA6B44 /* AppDelegate.h */,
 				7AD1E5FA20261A8200AA6B44 /* AppDelegate.m */,
 				7AD1E5FC20261A8200AA6B44 /* ViewController.h */,
@@ -204,6 +207,7 @@
 				7AD1E60320261A8200AA6B44 /* Assets.xcassets in Resources */,
 				7AD1E60120261A8200AA6B44 /* Main.storyboard in Resources */,
 				7A5BF7B32030812E005EAC8B /* include in Resources */,
+				7A5BF7EA20308968005EAC8B /* Video.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
