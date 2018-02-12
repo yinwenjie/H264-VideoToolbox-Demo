@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "DemoLocalFolderViewController.h"
 
 #include "include/libavformat/avformat.h"
 
@@ -52,12 +53,17 @@
     
     switch (indexPath.row) {
         case 0:
-            NSLog(@"Play Video from Albumn.");
-            break;
+        {
+            NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+            NSLog(@"Play Video from Albumn. Path: %@", documentsPath);
+        }   break;
             
-        case 1:
-            NSLog(@"Play Video from Bundle.");
-            break;
+        case 1: {
+            NSString *documentsPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/Video.bundle/Contents/Resources"];
+            DemoLocalFolderViewController *viewController = [[DemoLocalFolderViewController alloc] initWithFolderPath:documentsPath];
+            
+            [self.navigationController pushViewController:viewController animated:YES];
+        }   break;
         default:
             break;
     }

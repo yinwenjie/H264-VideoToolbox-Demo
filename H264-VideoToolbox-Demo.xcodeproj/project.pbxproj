@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A53847D2031D270008EB7CE /* DemoLocalFolderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A53847C2031D270008EB7CE /* DemoLocalFolderViewController.m */; };
 		7A5BF7B32030812E005EAC8B /* include in Resources */ = {isa = PBXBuildFile; fileRef = 7A5BF7B12030812E005EAC8B /* include */; };
 		7A5BF7B42030812E005EAC8B /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 7A5BF7B22030812E005EAC8B /* lib */; };
 		7A5BF7BD20308151005EAC8B /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A5BF7B620308151005EAC8B /* libavcodec.a */; };
@@ -33,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7A53847B2031D26F008EB7CE /* DemoLocalFolderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoLocalFolderViewController.h; sourceTree = "<group>"; };
+		7A53847C2031D270008EB7CE /* DemoLocalFolderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoLocalFolderViewController.m; sourceTree = "<group>"; };
 		7A5BF7B12030812E005EAC8B /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = "H264-VideoToolbox-Demo/include"; sourceTree = "<group>"; };
 		7A5BF7B22030812E005EAC8B /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = lib; path = "H264-VideoToolbox-Demo/lib"; sourceTree = "<group>"; };
 		7A5BF7B620308151005EAC8B /* libavcodec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavcodec.a; path = "H264-VideoToolbox-Demo/lib/libavcodec.a"; sourceTree = "<group>"; };
@@ -130,6 +133,8 @@
 		7AD1E5F820261A8100AA6B44 /* H264-VideoToolbox-Demo */ = {
 			isa = PBXGroup;
 			children = (
+				7A53847B2031D26F008EB7CE /* DemoLocalFolderViewController.h */,
+				7A53847C2031D270008EB7CE /* DemoLocalFolderViewController.m */,
 				7A5BF7E920308968005EAC8B /* Video.bundle */,
 				7AD1E5F920261A8200AA6B44 /* AppDelegate.h */,
 				7AD1E5FA20261A8200AA6B44 /* AppDelegate.m */,
@@ -219,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AD1E5FE20261A8200AA6B44 /* ViewController.m in Sources */,
+				7A53847D2031D270008EB7CE /* DemoLocalFolderViewController.m in Sources */,
 				7AD1E60920261A8200AA6B44 /* main.m in Sources */,
 				7AD1E5FB20261A8200AA6B44 /* AppDelegate.m in Sources */,
 			);
