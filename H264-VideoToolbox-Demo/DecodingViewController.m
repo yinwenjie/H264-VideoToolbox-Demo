@@ -8,6 +8,8 @@
 
 #import "DecodingViewController.h"
 
+#include "FFMpegDemuxer.h"
+
 @interface DecodingViewController ()
 
 @property (nonatomic, strong) NSURL *inputUrl;
@@ -29,11 +31,31 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor lightGrayColor];
+    
+    [self initFFMpegConfigWithURL: _inputUrl];
+    [self closeDecoder];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+# pragma mark - FFMpeg demuxer
+- (void)initFFMpegConfigWithURL: (NSURL *)url {
+    int err = 0;
+    err = init_ffmpeg_config(0);
+    if (err < 0) {
+        return;
+    }
+    err = load_input_file([[url absoluteString] UTF8String]);
+    if (err < 0) {
+        return;
+    }
+}
+
+- (void)closeDecoder {
+    ffmpeg_demuxer_release();
 }
 
 @end

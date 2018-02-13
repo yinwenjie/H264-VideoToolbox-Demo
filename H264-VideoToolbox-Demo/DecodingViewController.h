@@ -12,4 +12,6 @@
 
 - (instancetype)initWithURL: (NSURL *)url;
 
+- (void)closeDecoder;
+
 @end
