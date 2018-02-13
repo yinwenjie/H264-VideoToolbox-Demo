@@ -8,6 +8,7 @@
 
 
 #import "DemoLocalFolderViewController.h"
+#import "DecodingViewController.h"
 
 @interface DemoLocalFolderViewController ()
 
@@ -117,8 +118,10 @@
             NSString *fileName = [_folderPath stringByAppendingPathComponent:_files[indexPath.row]];
 
             fileName = [fileName stringByStandardizingPath];
-
-            NSLog(@"File name: %@", fileName);
+            
+            DecodingViewController *decViewController = [[DecodingViewController alloc] initWithURL:[NSURL URLWithString:fileName]];
+            
+            [self.navigationController pushViewController:decViewController animated:YES];
             
         } break;
         default:
