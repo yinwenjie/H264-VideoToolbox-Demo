@@ -11,9 +11,7 @@
 
 #include <stdio.h>
 
-int init_ffmpeg_config(int format);
-
-int load_input_file(const char *file_name);
+int init_ffmpeg_config(const char *input_file_name, int format);
 
 void ffmpeg_demuxer_release(void);
 

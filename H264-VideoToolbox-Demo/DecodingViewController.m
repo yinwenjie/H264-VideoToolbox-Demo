@@ -44,14 +44,11 @@
 # pragma mark - FFMpeg demuxer
 - (void)initFFMpegConfigWithURL: (NSURL *)url {
     int err = 0;
-    err = init_ffmpeg_config(0);
+    err = init_ffmpeg_config([[url absoluteString] UTF8String], 0);
     if (err < 0) {
         return;
     }
-    err = load_input_file([[url absoluteString] UTF8String]);
-    if (err < 0) {
-        return;
-    }
+    
 }
 
 - (void)closeDecoder {

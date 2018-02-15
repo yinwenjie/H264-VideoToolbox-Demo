@@ -8,33 +8,24 @@
 
 #include "FFMpegDemuxer.h"
 #include "libavcodec/avcodec.h"
+#include "libavformat/avformat.h"
 
 typedef struct FFDemuxer {
-    FILE    *input_file;
     FILE    *output_file;
-    
+    int     video_stream_index;
     AVCodec                 *codec;
     AVCodecContext          *codec_ctx;
-    AVCodecParserContext    *codec_parser_ctx;
+    AVFormatContext         *fmt_ctx;
 } FFDemuxer;
 FFDemuxer demuxer = {NULL};
 
-int init_ffmpeg_config_raw(void);
+int init_ffmpeg_config_mp4(const char *input_file_name);
 
 #pragma mark - API Implementation
-int init_ffmpeg_config(int format) {
+int init_ffmpeg_config(const char *input_file_name, int format) {
     int err = 0;
-
-    avcodec_register_all();
-    switch (format) {
-        case 0:
-            err = init_ffmpeg_config_raw();
-            break;
-            
-        default:
-            break;
-    }
-    
+    av_register_all();
+    err = init_ffmpeg_config_mp4(input_file_name);
     if (err < 0) {
         return err;
     }
@@ -42,19 +33,10 @@ int init_ffmpeg_config(int format) {
     return 0;
 }
 
-int load_input_file(const char *file_name) {
-    demuxer.input_file = fopen(file_name, "rb");
-    if (!demuxer.input_file) {
-        return -1;
-    }
-    printf("Open input file %s succeeded.\n", file_name);
-    return 0;
-}
-
 void ffmpeg_demuxer_release(void) {
-    if (demuxer.input_file) {
-        fclose(demuxer.input_file);
-        demuxer.input_file = NULL;
+    if (demuxer.fmt_ctx) {
+        avformat_close_input(&demuxer.fmt_ctx);
+        demuxer.fmt_ctx = NULL;
     }
     if (demuxer.output_file) {
         fclose(demuxer.output_file);
@@ -66,15 +48,29 @@ void ffmpeg_demuxer_release(void) {
         av_free(demuxer.codec_ctx);
         demuxer.codec_ctx = NULL;
     }
-    if (demuxer.codec_parser_ctx) {
-        av_parser_close(demuxer.codec_parser_ctx);
-        demuxer.codec_parser_ctx = NULL;
-    }
+
     printf("FFMpeg demuxer released.\n");
 }
 
-# pragma mark - Raw H.264 stream
-int init_ffmpeg_config_raw() {
+# pragma mark - MP4 format
+int init_ffmpeg_config_mp4(const char *input_file_name) {
+    if (avformat_open_input(&demuxer.fmt_ctx, input_file_name, NULL, NULL) < 0) {
+        printf("Error: Open input file failed.\n");
+        return -1;
+    }
+    
+    if (avformat_find_stream_info(demuxer.fmt_ctx, NULL)) {
+        printf("Error: Find stream info error.\n");
+        return -1;
+    }
+    
+    for (int idx = 0; idx < demuxer.fmt_ctx->nb_streams; idx++) {
+        if (demuxer.fmt_ctx->streams[idx]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO) {
+            demuxer.video_stream_index = idx;
+            break;
+        }
+    }
+    
     demuxer.codec = avcodec_find_decoder(AV_CODEC_ID_H264);
     if (!demuxer.codec) {
         printf("Error: find decoder H.264 failed in libavcodec. Rebuild ffmpeg with H.264 encoder enabled.\n");
@@ -87,17 +83,11 @@ int init_ffmpeg_config_raw() {
         return -1;
     }
     
-    demuxer.codec_parser_ctx = av_parser_init(AV_CODEC_ID_H264);
-    if (!demuxer.codec_parser_ctx) {
-        printf("Error: AVCodecContextParser instance allocation failed.\n");
-        return -1;
-    }
-    
     if (avcodec_open2(demuxer.codec_ctx, demuxer.codec, NULL) < 0) {
         printf("Error: Open codec failed.\n");
         return -1;
     }
     
-    printf("Configuration for raw H.264 bitstream succeeded.\n");
+    printf("Configuration for H.264 MP4 succeeded.\n");
     return 0;
 }
