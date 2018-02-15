@@ -33,12 +33,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    int err = 0;
+    int err = 0, total_frames = 0;
     self.view.backgroundColor = [UIColor lightGrayColor];
     
     [self initFFMpegConfigWithURL: _inputUrl];
     
     err = [self initVideoToolboxDecoder];
+    if (err < 0) {
+        return;
+    }
+    
+    total_frames = [self runVideoToolboxDecoder];
     
     [self closeDecoder];
 }
@@ -55,6 +60,11 @@
         NSLog(@"Error: VideoToolbox decoder initialization failed.");
         return -1;
     }
+    return 0;
+}
+
+- (int)runVideoToolboxDecoder {
+    [_videoToolboxDecoder decodeVideo];
     return 0;
 }
 

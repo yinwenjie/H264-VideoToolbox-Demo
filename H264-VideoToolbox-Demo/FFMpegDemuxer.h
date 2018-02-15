@@ -11,10 +11,17 @@
 
 #include <stdio.h>
 
+typedef struct {
+    uint8_t *nal_buf;
+    int nal_size;
+} NAL_UNIT;
+
 int init_ffmpeg_config(const char *input_file_name, int format);
 
 typedef struct AVCodecParameters AVCodecParameters;
 AVCodecParameters* get_codec_paramaters(void);
+
+int get_video_packet(NAL_UNIT *nalu);
 
 void ffmpeg_demuxer_release(void);
 

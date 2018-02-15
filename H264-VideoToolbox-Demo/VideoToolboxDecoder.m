@@ -27,6 +27,12 @@
     return self;
 }
 
+- (int)decodeVideo {
+    NAL_UNIT nal_unit = { NULL, 0 };
+    get_video_packet(&nal_unit);
+    return 0;
+}
+
 #pragma mark - VideoToolbox Activity
 static void didDecompress(void *decompressionOutputRefCon,
                           void *sourceFrameRefCon,

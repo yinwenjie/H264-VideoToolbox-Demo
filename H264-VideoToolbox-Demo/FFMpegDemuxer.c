@@ -11,11 +11,12 @@
 #include "libavformat/avformat.h"
 
 typedef struct FFDemuxer {
-    FILE    *output_file;
-    int     video_stream_index;
-    AVCodec                 *codec;
-    AVCodecContext          *codec_ctx;
-    AVFormatContext         *fmt_ctx;
+    FILE            *output_file;
+    int             video_stream_index;
+    AVCodec         *codec;
+    AVCodecContext  *codec_ctx;
+    AVFormatContext *fmt_ctx;
+    AVPacket        pkt;
 } FFDemuxer;
 FFDemuxer demuxer = {NULL};
 
@@ -39,6 +40,25 @@ AVCodecParameters* get_codec_paramaters(void) {
         return NULL;
     }
     return codecpar;
+}
+
+int get_video_packet(NAL_UNIT *nalu) {
+    int got_video_frame = 0;
+    while (av_read_frame(demuxer.fmt_ctx, &(demuxer.pkt)) >= 0) {
+        if (demuxer.pkt.stream_index != demuxer.video_stream_index) {
+            continue;
+        }
+        
+        got_video_frame = 1;
+        nalu->nal_size = demuxer.pkt.size;
+        nalu->nal_buf = demuxer.pkt.data;
+        break;
+    }
+    
+    if (!got_video_frame) {
+        return -1;
+    }
+    return 0;
 }
 
 void ffmpeg_demuxer_release(void) {
@@ -95,6 +115,11 @@ int init_ffmpeg_config_mp4(const char *input_file_name) {
         printf("Error: Open codec failed.\n");
         return -1;
     }
+    
+    /* initialize packet, set data to NULL, let the demuxer fill it */
+    av_init_packet(&(demuxer.pkt));
+    demuxer.pkt.data = NULL;
+    demuxer.pkt.size = 0;
     
     printf("Configuration for H.264 MP4 succeeded.\n");
     return 0;

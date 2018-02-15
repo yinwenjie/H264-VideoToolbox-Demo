@@ -12,4 +12,6 @@
 
 - (instancetype)initWithExtradata;
 
+- (int)decodeVideo;
+
 @end
