@@ -7,12 +7,15 @@
 //
 
 #import "DecodingViewController.h"
+#import "VideoToolboxDecoder.h"
 
 #include "FFMpegDemuxer.h"
 
 @interface DecodingViewController ()
 
 @property (nonatomic, strong) NSURL *inputUrl;
+
+@property (nonatomic, strong) VideoToolboxDecoder *videoToolboxDecoder;
 
 @end
 
@@ -30,15 +33,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    int err = 0;
     self.view.backgroundColor = [UIColor lightGrayColor];
     
     [self initFFMpegConfigWithURL: _inputUrl];
+    
+    err = [self initVideoToolboxDecoder];
+    
     [self closeDecoder];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+# pragma mark - VideoToolbox
+- (int)initVideoToolboxDecoder {
+    _videoToolboxDecoder = [[VideoToolboxDecoder alloc] initWithExtradata];
+    if (!_videoToolboxDecoder) {
+        NSLog(@"Error: VideoToolbox decoder initialization failed.");
+        return -1;
+    }
+    return 0;
 }
 
 # pragma mark - FFMpeg demuxer

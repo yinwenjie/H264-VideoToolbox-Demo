@@ -33,6 +33,14 @@ int init_ffmpeg_config(const char *input_file_name, int format) {
     return 0;
 }
 
+AVCodecParameters* get_codec_paramaters(void) {
+    AVCodecParameters *codecpar = avcodec_parameters_alloc();
+    if (avcodec_parameters_from_context(codecpar, demuxer.codec_ctx)) {
+        return NULL;
+    }
+    return codecpar;
+}
+
 void ffmpeg_demuxer_release(void) {
     if (demuxer.fmt_ctx) {
         avformat_close_input(&demuxer.fmt_ctx);

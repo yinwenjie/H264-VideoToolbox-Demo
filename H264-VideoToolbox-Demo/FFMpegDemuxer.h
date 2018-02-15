@@ -13,6 +13,9 @@
 
 int init_ffmpeg_config(const char *input_file_name, int format);
 
+typedef struct AVCodecParameters AVCodecParameters;
+AVCodecParameters* get_codec_paramaters(void);
+
 void ffmpeg_demuxer_release(void);
 
 #endif /* FFMpegDemuxer_h */
