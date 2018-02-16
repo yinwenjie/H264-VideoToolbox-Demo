@@ -107,6 +107,8 @@ static void didDecompress(void *decompressionOutputRefCon,
     CFMutableDictionaryRef atoms = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks,&kCFTypeDictionaryValueCallBacks);
     CFMutableDictionaryRef extensions = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     
+    NSLog(@"Frame width: %d, height: %d", width, height);
+    
     /* CVPixelAspectRatio dict */
     dict_set_i32(par, CFSTR ("HorizontalSpacing"), 0);
     dict_set_i32(par, CFSTR ("VerticalSpacing"), 0);
