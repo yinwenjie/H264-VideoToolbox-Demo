@@ -46,7 +46,7 @@
         return;
     }
     
-    total_frames = [self runVideoToolboxDecoder];
+    [self runVideoToolboxDecoder];
     
     [self closeDecoder];
 }
@@ -67,9 +67,13 @@
 }
 
 - (int)runVideoToolboxDecoder {
+    int err = 0;
     CVPixelBufferRef pixelBuffer = NULL;
-    [_videoToolboxDecoder decodeVideo:&pixelBuffer];
-
+    err = [_videoToolboxDecoder decodeVideo:&pixelBuffer];
+    if (err < 0) {
+        return -1;
+    }
+        
     if (pixelBuffer) {
         self.glLayer.pixelBuffer = pixelBuffer;
         CVPixelBufferRelease(pixelBuffer);
@@ -84,11 +88,11 @@
     if (err < 0) {
         return;
     }
-    
 }
 
 - (void)closeDecoder {
     ffmpeg_demuxer_release();
+    [_videoToolboxDecoder releaseVideoToolboxDecoder];
 }
 
 @end

@@ -15,4 +15,5 @@
 
 - (int)decodeVideo: (CVPixelBufferRef *)pixelBuffer;
 
+- (void)releaseVideoToolboxDecoder;
 @end

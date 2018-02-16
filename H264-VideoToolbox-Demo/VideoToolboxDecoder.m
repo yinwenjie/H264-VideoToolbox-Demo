@@ -28,8 +28,12 @@
 }
 
 - (int)decodeVideo: (CVPixelBufferRef *)pixelBuffer {
+    int err = 0;
     NAL_UNIT nal_unit = { NULL, 0 };
-    get_video_packet(&nal_unit);
+    err = get_video_packet(&nal_unit);
+    if (err < 0) {
+        return err;
+    }
     
     CVPixelBufferRef outputPixelBuffer = NULL;
     CMBlockBufferRef blockBuffer = NULL;
@@ -82,6 +86,23 @@
     } else {
         return 0;
     }
+}
+
+- (void)releaseVideoToolboxDecoder {
+    if (decompressSession) {
+        VTDecompressionSessionInvalidate(decompressSession);
+        CFRelease(decompressSession);
+        decompressSession = NULL;
+    }
+    if (formatDecsription) {
+        CFRelease(formatDecsription);
+        formatDecsription = NULL;
+    }
+    if (codecpar) {
+        av_free(codecpar);
+        codecpar = NULL;
+    }
+    NSLog(@"VideoToolbox Decoder released.");
 }
 
 #pragma mark - VideoToolbox Activity
