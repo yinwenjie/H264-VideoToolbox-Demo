@@ -7,6 +7,7 @@
 //
 
 #import "DecodingViewController.h"
+#import "AAPLEAGLLayer.h"
 #import "VideoToolboxDecoder.h"
 
 #include "FFMpegDemuxer.h"
@@ -14,8 +15,8 @@
 @interface DecodingViewController ()
 
 @property (nonatomic, strong) NSURL *inputUrl;
-
 @property (nonatomic, strong) VideoToolboxDecoder *videoToolboxDecoder;
+@property (nonatomic, strong) AAPLEAGLLayer *glLayer;
 
 @end
 
@@ -35,6 +36,8 @@
     // Do any additional setup after loading the view.
     int err = 0, total_frames = 0;
     self.view.backgroundColor = [UIColor lightGrayColor];
+    _glLayer = [[AAPLEAGLLayer alloc] initWithFrame:self.view.bounds];
+    [self.view.layer addSublayer:_glLayer];
     
     [self initFFMpegConfigWithURL: _inputUrl];
     
@@ -64,7 +67,13 @@
 }
 
 - (int)runVideoToolboxDecoder {
-    [_videoToolboxDecoder decodeVideo];
+    CVPixelBufferRef pixelBuffer = NULL;
+    [_videoToolboxDecoder decodeVideo:&pixelBuffer];
+
+    if (pixelBuffer) {
+        self.glLayer.pixelBuffer = pixelBuffer;
+        CVPixelBufferRelease(pixelBuffer);
+    }
     return 0;
 }
 

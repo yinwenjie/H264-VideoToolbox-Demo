@@ -11,6 +11,7 @@
 		7A5384802032EDE1008EB7CE /* DecodingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A53847F2032EDE1008EB7CE /* DecodingViewController.m */; };
 		7A53848420331A62008EB7CE /* FFMpegDemuxer.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A53848320331A62008EB7CE /* FFMpegDemuxer.c */; };
 		7A538487203549AF008EB7CE /* VideoToolboxDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A538486203549AF008EB7CE /* VideoToolboxDecoder.m */; };
+		7A53848B2036EEE5008EB7CE /* AAPLEAGLLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A53848A2036EEE4008EB7CE /* AAPLEAGLLayer.m */; };
 		7A5BF7B32030812E005EAC8B /* include in Resources */ = {isa = PBXBuildFile; fileRef = 7A5BF7B12030812E005EAC8B /* include */; };
 		7A5BF7B42030812E005EAC8B /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 7A5BF7B22030812E005EAC8B /* lib */; };
 		7A5BF7BD20308151005EAC8B /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A5BF7B620308151005EAC8B /* libavcodec.a */; };
@@ -45,6 +46,8 @@
 		7A53848320331A62008EB7CE /* FFMpegDemuxer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = FFMpegDemuxer.c; sourceTree = "<group>"; };
 		7A538485203549AF008EB7CE /* VideoToolboxDecoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoToolboxDecoder.h; sourceTree = "<group>"; };
 		7A538486203549AF008EB7CE /* VideoToolboxDecoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoToolboxDecoder.m; sourceTree = "<group>"; };
+		7A5384892036EEE4008EB7CE /* AAPLEAGLLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLEAGLLayer.h; sourceTree = "<group>"; };
+		7A53848A2036EEE4008EB7CE /* AAPLEAGLLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPLEAGLLayer.m; sourceTree = "<group>"; };
 		7A5BF7B12030812E005EAC8B /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = "H264-VideoToolbox-Demo/include"; sourceTree = "<group>"; };
 		7A5BF7B22030812E005EAC8B /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = lib; path = "H264-VideoToolbox-Demo/lib"; sourceTree = "<group>"; };
 		7A5BF7B620308151005EAC8B /* libavcodec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavcodec.a; path = "H264-VideoToolbox-Demo/lib/libavcodec.a"; sourceTree = "<group>"; };
@@ -153,6 +156,8 @@
 				7A53847F2032EDE1008EB7CE /* DecodingViewController.m */,
 				7A538485203549AF008EB7CE /* VideoToolboxDecoder.h */,
 				7A538486203549AF008EB7CE /* VideoToolboxDecoder.m */,
+				7A5384892036EEE4008EB7CE /* AAPLEAGLLayer.h */,
+				7A53848A2036EEE4008EB7CE /* AAPLEAGLLayer.m */,
 				7A53848220331A62008EB7CE /* FFMpegDemuxer.h */,
 				7A53848320331A62008EB7CE /* FFMpegDemuxer.c */,
 				7AD1E5FF20261A8200AA6B44 /* Main.storyboard */,
@@ -244,6 +249,7 @@
 				7AD1E60920261A8200AA6B44 /* main.m in Sources */,
 				7A5384802032EDE1008EB7CE /* DecodingViewController.m in Sources */,
 				7AD1E5FB20261A8200AA6B44 /* AppDelegate.m in Sources */,
+				7A53848B2036EEE5008EB7CE /* AAPLEAGLLayer.m in Sources */,
 				7A53848420331A62008EB7CE /* FFMpegDemuxer.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

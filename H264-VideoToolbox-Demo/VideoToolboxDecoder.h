@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreVideo/CoreVideo.h>
 
 @interface VideoToolboxDecoder : NSObject
 
 - (instancetype)initWithExtradata;
 
-- (int)decodeVideo;
+- (int)decodeVideo: (CVPixelBufferRef *)pixelBuffer;
 
 @end

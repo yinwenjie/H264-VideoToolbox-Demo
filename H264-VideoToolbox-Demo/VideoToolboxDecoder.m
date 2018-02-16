@@ -27,7 +27,7 @@
     return self;
 }
 
-- (int)decodeVideo {
+- (int)decodeVideo: (CVPixelBufferRef *)pixelBuffer {
     NAL_UNIT nal_unit = { NULL, 0 };
     get_video_packet(&nal_unit);
     
@@ -77,9 +77,10 @@
     CFRelease(blockBuffer);
 
     if (status == noErr) {
-        return 0;
+        *pixelBuffer = outputPixelBuffer;
+        return 1;
     } else {
-        return -1;
+        return 0;
     }
 }
 
