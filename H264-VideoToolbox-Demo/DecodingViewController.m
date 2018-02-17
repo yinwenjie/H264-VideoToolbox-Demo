@@ -34,10 +34,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    int err = 0, total_frames = 0;
+    int err = 0;
     self.view.backgroundColor = [UIColor lightGrayColor];
     _glLayer = [[AAPLEAGLLayer alloc] initWithFrame:self.view.bounds];
-    [self.view.layer addSublayer:_glLayer];
     
     [self initFFMpegConfigWithURL: _inputUrl];
     
@@ -45,9 +44,19 @@
     if (err < 0) {
         return;
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.view.layer addSublayer:_glLayer];
     
-    [self runVideoToolboxDecoder];
-    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [self runVideoToolboxDecoder];
+    });
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [self closeDecoder];
 }
 
@@ -68,16 +77,23 @@
 
 - (int)runVideoToolboxDecoder {
     int err = 0;
-    CVPixelBufferRef pixelBuffer = NULL;
-    err = [_videoToolboxDecoder decodeVideo:&pixelBuffer];
-    if (err < 0) {
-        return -1;
-    }
+    while (1) {
+        CVPixelBufferRef pixelBuffer = NULL;
+        err = [_videoToolboxDecoder decodeVideo:&pixelBuffer];
+        if (err < 0) {
+            break;
+        }
         
-    if (pixelBuffer) {
-        self.glLayer.pixelBuffer = pixelBuffer;
-        CVPixelBufferRelease(pixelBuffer);
+        if (pixelBuffer) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                self.glLayer.pixelBuffer = pixelBuffer;
+            });
+            CVPixelBufferRelease(pixelBuffer);
+        }
+        
+        [NSThread sleepForTimeInterval:0.025];
     }
+    
     return 0;
 }
 
