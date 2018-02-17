@@ -12,7 +12,9 @@
 
 #include "FFMpegDemuxer.h"
 
-@interface DecodingViewController ()
+@interface DecodingViewController () {
+    int playState;
+}
 
 @property (nonatomic, strong) NSURL *inputUrl;
 @property (nonatomic, strong) VideoToolboxDecoder *videoToolboxDecoder;
@@ -48,6 +50,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    playState = 0;
     [self.view.layer addSublayer:_glLayer];
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -78,6 +81,10 @@
 - (int)runVideoToolboxDecoder {
     int err = 0;
     while (1) {
+        if (playState == 1) {
+            break;
+        }
+        
         CVPixelBufferRef pixelBuffer = NULL;
         err = [_videoToolboxDecoder decodeVideo:&pixelBuffer];
         if (err < 0) {
@@ -107,6 +114,7 @@
 }
 
 - (void)closeDecoder {
+    playState = 1;
     ffmpeg_demuxer_release();
     [_videoToolboxDecoder releaseVideoToolboxDecoder];
 }
