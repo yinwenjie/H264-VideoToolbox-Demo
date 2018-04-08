@@ -11,14 +11,13 @@
 #include "libavformat/avformat.h"
 
 typedef struct FFDemuxer {
-    FILE            *output_file;
     int             video_stream_index;
     AVCodec         *codec;
     AVCodecContext  *codec_ctx;
     AVFormatContext *fmt_ctx;
     AVPacket        pkt;
 } FFDemuxer;
-FFDemuxer demuxer = {NULL};
+FFDemuxer demuxer = {-1, NULL};
 
 int init_ffmpeg_config_mp4(const char *input_file_name);
 
@@ -36,7 +35,7 @@ int init_ffmpeg_config(const char *input_file_name, int format) {
 
 AVCodecParameters* get_codec_paramaters(void) {
     AVCodecParameters *codecpar = avcodec_parameters_alloc();
-    if (avcodec_parameters_from_context(codecpar, demuxer.codec_ctx)) {
+    if (avcodec_parameters_from_context(codecpar, demuxer.codec_ctx) < 0) {
         return NULL;
     }
     return codecpar;
@@ -66,15 +65,9 @@ void ffmpeg_demuxer_release(void) {
         avformat_close_input(&demuxer.fmt_ctx);
         demuxer.fmt_ctx = NULL;
     }
-    if (demuxer.output_file) {
-        fclose(demuxer.output_file);
-        demuxer.output_file = NULL;
-    }
     
     if (demuxer.codec_ctx) {
-        avcodec_close(demuxer.codec_ctx);
-        av_free(demuxer.codec_ctx);
-        demuxer.codec_ctx = NULL;
+        avcodec_free_context(&demuxer.codec_ctx);
     }
 
     printf("FFMpeg demuxer released.\n");
