@@ -14,7 +14,7 @@
 
 @implementation VideoToolboxDecoder {
     AVCodecParameters *codecpar;
-    CMFormatDescriptionRef formatDecsription;
+    CMVideoFormatDescriptionRef formatDecsription;
     VTDecompressionSessionRef decompressSession;
 }
 
